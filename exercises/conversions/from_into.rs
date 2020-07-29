@@ -37,6 +37,22 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.chars().count() == 0 {
+            return Person::default();
+        }
+        let split_data = s.split(",").collect::<Vec<&str>>();
+        let age = match split_data.get(1) {
+            Some(n) => n.parse::<usize>(),
+            None => return Person::default()
+        };
+
+        let name = *split_data.get(0).expect("Index missing");
+        let person = match age {
+            Ok(n) => Person{name: String::from(name), age: n},
+            Err(e) => Person::default(),
+        };
+
+        person
     }
 }
 
