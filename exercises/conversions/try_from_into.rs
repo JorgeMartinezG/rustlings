@@ -11,8 +11,6 @@ struct Color {
     blue: u8,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
 // You need create implementation for a tuple of three integer,
@@ -40,6 +38,25 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = String;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+=======
+    fn try_from(s: &str) -> Result<Self, Self::Error> {
+        if s.chars().count() == 0 {
+            return Err(String::from("Empty string"))
+        }
+        let split_data = s.split(",").collect::<Vec<&str>>();
+        let age = match split_data.get(1) {
+            Some(n) => n.parse::<usize>(),
+            None => return Err(String::from(""))
+        };
+
+        let name = *split_data.get(0).expect("Index missing");
+        let person = match age {
+            Ok(n) => Person{name: String::from(name), age: n},
+            Err(e) => return Err(String::from(""))
+        };
+
+        Ok(person)
+>>>>>>> Finished conversions
     }
 }
 
