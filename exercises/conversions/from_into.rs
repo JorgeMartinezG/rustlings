@@ -47,6 +47,10 @@ impl From<&str> for Person {
         };
 
         let name = *split_data.get(0).expect("Index missing");
+        if name == "" {
+          return Person::default()
+        }
+
         let person = match age {
             Ok(n) => Person{name: String::from(name), age: n},
             Err(e) => Person::default(),

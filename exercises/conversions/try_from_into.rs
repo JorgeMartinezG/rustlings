@@ -24,6 +24,12 @@ struct Color {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = String;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        let range = 0..=255;
+        if !range.contains(&tuple.0) | !range.contains(&tuple.1) | !range.contains(&tuple.2) {
+            return Err(String::from("Invalid color value"))
+        }
+        let color = Color{red: tuple.0 as u8, green: tuple.1 as u8, blue: tuple.2 as u8};
+        Ok(color)
     }
 }
 
@@ -31,6 +37,12 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let range = 0..=255;
+        if !range.contains(&arr[0]) | !range.contains(&arr[1]) | !range.contains(&arr[2]) {
+            return Err(String::from("Invalid color value"))
+        }
+        let color = Color{red: arr[0] as u8, green: arr[1] as u8, blue: arr[2] as u8};
+        Ok(color)
     }
 }
 
@@ -38,25 +50,16 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = String;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
-=======
-    fn try_from(s: &str) -> Result<Self, Self::Error> {
-        if s.chars().count() == 0 {
-            return Err(String::from("Empty string"))
+        if slice.len() != 3 {
+            return Err(String::from("Length mismatch"))
         }
-        let split_data = s.split(",").collect::<Vec<&str>>();
-        let age = match split_data.get(1) {
-            Some(n) => n.parse::<usize>(),
-            None => return Err(String::from(""))
-        };
 
-        let name = *split_data.get(0).expect("Index missing");
-        let person = match age {
-            Ok(n) => Person{name: String::from(name), age: n},
-            Err(e) => return Err(String::from(""))
-        };
-
-        Ok(person)
->>>>>>> Finished conversions
+        let range = 0..=255;
+        if !range.contains(&slice[0]) | !range.contains(&slice[1]) | !range.contains(&slice[2]) {
+            return Err(String::from("Invalid color value"))
+        }
+        let color = Color{red: slice[0] as u8, green: slice[1] as u8, blue: slice[2] as u8};
+        Ok(color)
     }
 }
 

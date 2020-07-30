@@ -32,6 +32,9 @@ impl FromStr for Person {
         };
 
         let name = *split_data.get(0).expect("Index missing");
+        if name == "" {
+            return Err(String::from("Error"))
+        }
         let person = match age {
             Ok(n) => Person{name: String::from(name), age: n},
             Err(e) => return Err(String::from(""))
