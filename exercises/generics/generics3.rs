@@ -37,13 +37,8 @@ mod tests {
     #[test]
     fn generate_alphabetic_report_card() {
         let report_card = ReportCard {
-<<<<<<< HEAD
-            grade: 2.1,
-            student_name: "Gary Plotter".to_string(),
-=======
             grade: "A+", 
             student_name: "Gary Plotter".to_string(), 
->>>>>>> Finished threads generics
             student_age: 11,
         };
         assert_eq!(report_card.print(), "Gary Plotter (11) - achieved a grade of A+");
